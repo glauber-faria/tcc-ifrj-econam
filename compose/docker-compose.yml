@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  mosquitto-broker:
+    image: "eclipse-mosquitto"
+    container_name: "mosquitto-broker"
+    restart: on-failure
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - /opt/mosquitto/mosquitto.conf:/var/lib/mosquitto/config/mosquitto.conf
