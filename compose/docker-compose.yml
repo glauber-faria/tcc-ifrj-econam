@@ -9,3 +9,22 @@ services:
       - 9001:9001
     volumes:
       - /opt/mosquitto/mosquitto.conf:/var/lib/mosquitto/config/mosquitto.conf
+  postgres:
+      image: "postgres"
+      shm_size: 1g
+      container_name: "postgres"
+      hostname: ${DBHOSTNAME}
+      restart: on-failure
+      volumes:
+        - "/opt/databases/volume-econam/_data:/var/lib/postgresql/data"
+      ports:
+        - ${DBPORT}:${DBPORT}
+      environment:
+        POSTGRES_PASSWORD: ${DBPASS}
+        POSTGRES_DB: ${DB}
+        POSTGRES_USER: ${DBUSER}
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
