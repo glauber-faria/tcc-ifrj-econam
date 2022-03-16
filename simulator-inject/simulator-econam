@@ -19,6 +19,6 @@ while [[ True ]]; do
     mosquitto_pub -t econam01 -m "{"variable":"tempo_de_uso", "value":$(($RANDOM%151)),"unit":"H"}"
     mosquitto_pub -t econam01 -m "{"variable":"ph", "value":$(($RANDOM%151)),"unit":""}"
     mosquitto_pub -t econam01 -m "{"variable":"turbidez", "value":$(($RANDOM%151)),"unit":"UNT"}"
-    mosquitto_pub -t econam01 -m "{"variable":"dqo", "value":$(($RANDOM%151)),"unit":"mg O2/L"}"
+    mosquitto_pub -t econam01 -m "{"variable":"dqo", "value":$(($RANDOM%151)),"unit":"mgO2/L"}"
     sleep 100
 done
