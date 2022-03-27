@@ -1,0 +1,19 @@
+{
+    "broker_config": {
+        "host": "mqtt.eclipseprojects.io",
+        "port": 1883,
+        "client_id": "econam-teste-broker-client-id"
+    },
+    "database_config": {
+        "host":"localhost",
+        "port": 5432,
+        "database": "econam",
+        "username":"postgres",
+        "password": "postgres"
+
+    },
+    "topics": [
+        "econam01",
+        "econam02"
+    ]
+}

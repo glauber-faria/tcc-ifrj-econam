@@ -20,8 +20,8 @@ function App() {
   return (
     <div className="App">
       <Websocket
-        url='http://localhost:8080/collector/stomp'
-        topics={['/topic/teste']}
+        url='http://localhost:8080/hu/stomp'
+        topics={['/topic/monitoring']}
         handleMessage={handleMessage}
         client={handleClient}
       />
@@ -38,11 +38,10 @@ function App() {
         >
           Learn React
         </a>
-        <h1>{content}</h1>
-
         <div>
-          <button onClick={() => client.sendMessage("/topic/teste", "Teste123456")}>Teste send ws</button>
+          <button onClick={() => client.sendMessage("/topic/monitoring", "Teste123456")}>Teste send ws</button>
         </div>
+
       </header>
     </div>
   );

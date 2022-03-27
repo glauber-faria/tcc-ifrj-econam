@@ -1,19 +1,10 @@
 version: "3.8"
 services:
-  mosquitto-broker:
-    image: "eclipse-mosquitto"
-    container_name: "mosquitto-broker"
-    restart: on-failure
-    ports:
-      - 1883:1883
-      - 9001:9001
-    volumes:
-      - /opt/mosquitto/mosquitto.conf:/var/lib/mosquitto/config/mosquitto.conf
   postgres:
       image: "postgres"
       shm_size: 1g
       container_name: "postgres"
-      hostname: ${DBHOSTNAME}
+      hostname: "localhost"
       restart: on-failure
       volumes:
         - "/opt/databases/volume-econam/_data:/var/lib/postgresql/data"
@@ -28,3 +19,8 @@ services:
         interval: 10s
         timeout: 5s
         retries: 5
+  grafana:
+      image: "grafana/grafana"
+      shm_size: 1g
+      ports:
+        - 3000:3000

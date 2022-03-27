@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while [[ True ]]; do
+    mosquitto_pub -h mqtt.eclipseprojects.io -t econam02 -m "{\"variable\": \"econam02\", \"value\":$(($RANDOM%151)), \"unit\":\"L/Min\"}"
+    sleep 10
+done
