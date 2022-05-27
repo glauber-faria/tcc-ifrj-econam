@@ -29,3 +29,25 @@ services:
       - "./config/datasources:/etc/grafana/datasources"
       - "./config/plugins:/var/lib/grafana/plugins"
       - "./grafana_data:/var/lib/grafana"
+  mosquitto:
+    image: eclipse-mosquitto:1.6.14
+    hostname: mosquitto
+    container_name: mosquitto
+    expose:
+      - "1883"
+      - "9001"
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - "./mosquitto/mosquitto.conf:/var/lib/mosquitto/config/mosquitto.conf"
+  machbase:
+    image: "machbase/machbase"
+    hostname: machbase
+    container_name: machbase
+    expose:
+      - "5001"
+      - "5656"
+    ports:
+      - "5001:5001"
+      - "5656:5656"
