@@ -2,12 +2,11 @@ version: "3.8"
 services:
   postgres:
     image: "postgres"
-    shm_size: 1g
-    container_name: "postgres"
-    hostname: "localhost"
+    container_name: postgres
+    hostname: localhost
     restart: on-failure
     volumes:
-      - "/opt/databases/volume-econam/_data:/var/lib/postgresql/data"
+      - "./volumes/postgres/_data:/var/lib/postgresql/data"
     ports:
       - ${DBPORT}:${DBPORT}
     environment:
@@ -19,16 +18,24 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  influx:
+    image: "influxdb"
+    container_name: "influxdb"
+    ports:
+      - 8086:8086
+    volumes:
+      - "./volumes/influx/influxdb/:/var/lib/influxdb"
+      - "./volumes/influx/influxdb2/:/var/lib/influxdb2"
   grafana:
     image: "grafana/grafana"
-    shm_size: 1g
+    container_name: grafana
     ports:
       - 3001:3000
     volumes:
-      - "./config/dashboards:/var/lib/grafana/dashboards"
-      - "./config/datasources:/etc/grafana/datasources"
-      - "./config/plugins:/var/lib/grafana/plugins"
-      - "./grafana_data:/var/lib/grafana"
+      - "./volumes/grafana/dashboards:/var/lib/grafana/dashboards"
+      - "./volumes/grafana/datasources:/etc/grafana/datasources"
+      - "./volumes/grafana/plugins:/var/lib/grafana/plugins"
+      - "./volumes/grafana/grafana_data:/var/lib/grafana"
   mosquitto:
     image: eclipse-mosquitto:1.6.14
     hostname: mosquitto
@@ -40,14 +47,4 @@ services:
       - "1883:1883"
       - "9001:9001"
     volumes:
-      - "./mosquitto/mosquitto.conf:/var/lib/mosquitto/config/mosquitto.conf"
-  machbase:
-    image: "machbase/machbase"
-    hostname: machbase
-    container_name: machbase
-    expose:
-      - "5001"
-      - "5656"
-    ports:
-      - "5001:5001"
-      - "5656:5656"
+      - "./volumes/mosquitto/mosquitto.conf:/var/lib/mosquitto/config/mosquitto.conf"
